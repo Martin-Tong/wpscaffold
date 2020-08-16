@@ -14,7 +14,8 @@
     "yeoman-generator": "^3.2.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "create": "webpack-cli init creator.js"
   },
   "keywords": [],
   "author": "martin-tong",

@@ -1,6 +1,7 @@
 const Generator = require('yeoman-generator')
-const List = require('@webpack-cli/webpack-scaffold').List
-const Confirm = require('@webpack-cli/webpack-scaffold').Confirm
+const List = require('./src/utils').List
+const Confirm = require('./src/utils').Confirm
+const Input = require('./src/utils').Input
 
 module.exports = class WebpackGenerator extends Generator {
     constructor(args, opts) {
@@ -16,25 +17,32 @@ module.exports = class WebpackGenerator extends Generator {
         const done = this.async();
       console.log(
 `
-    webpack-scaffold-my
-    -----------------------
-    <my-custom-scaffold>
+    ready to create config file
+    ---------------------------
+    choose features to start
 `);
-        Confirm(this, "start", "Do you want to scaffold? ")
+        this.prompt(
+            [
+                List('package', 'package manager', ['npm', 'yarn', 'bower'], 'npm'),
+                List('buildin', 'choose build-ins', ['base', 'vue', 'electron'], 'base'),
+                Input('filename', 'generated filename')
+            ]
+        )
         .then((answer) => {
-            if (answer.start) {
-                console.log("Let's start scaffolding!");
-                this.options.env.configuration.config.webpackOptions = {
-                    mode: "development"
-                }
-                this.options.env.configuration.config.topScope = [
-                    'const path = require("path")',
-                    'const webpack = require("webpack")'
-                  ];
-                this.options.env.configuration.config.configName = "dev"
-                done();
+            let filename = answer.filename ? answer.filename : answer.buildin
+            switch (answer.buildin) {
+                case 'base':
+                    const options = require('./src/template').base
+                    this.options.env.configuration.config.webpackOptions = options.webpackOptions
+                    this.options.env.configuration.config.topScope = options.topScope
+                    this.options.env.configuration.config.configName = filename
+                    break
+                case 'vue':
+                    break
+                case 'electron':
+                    break
             }
-            done(); // to end questioning
+            done()
         })    
     }
 
@@ -45,4 +53,5 @@ module.exports = class WebpackGenerator extends Generator {
     /* install() {
         this.installDependencies();
       } */
+      
 }

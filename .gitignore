@@ -1,4 +1,2 @@
 node_modules
 .yo-rc.json
-*.js
-!creator.js

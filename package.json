@@ -1,12 +1,13 @@
 {
   "name": "wpscaffold",
   "version": "1.0.0",
-  "description": "",
+  "description": "webpack scaffold(利用webpack脚手架快速生成配置文件)",
   "main": "creator.js",
   "dependencies": {
     "webpack": "^4.44.1"
   },
   "devDependencies": {
+    "@webpack-cli/init": "^0.2.2",
     "@webpack-cli/webpack-scaffold": "^0.1.9",
     "webpack-cli": "^3.3.12",
     "webpack-scaffold-starter": "^1.1.1",
@@ -16,6 +17,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "martin-tong",
   "license": "ISC"
 }
